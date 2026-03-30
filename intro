@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taleggio DOP: Business & Marketing Case Study</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root { --taleggio-gold: #D4AF37; --bg-cream: #FCFAF7; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-cream); color: #1a1a1a; scroll-behavior: smooth; }
+        .serif { font-family: 'Playfair Display', serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .ita-text { color: #8a8a8a; font-style: italic; font-size: 0.875rem; line-height: 1.5; margin-top: 0.5rem; }
+        .accent-line { width: 40px; height: 2px; background: var(--taleggio-gold); margin-bottom: 1.5rem; }
+    </style>
+</head>
+<body class="selection:bg-amber-100">
+
+    <nav class="p-6 max-w-7xl mx-auto flex justify-between items-center text-xs uppercase tracking-widest text-gray-400">
+        <span>Master in Italian Food and Wine</span>
+        <span class="mono">Module_02 / Analysis</span>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 py-12 lg:py-24">
+        
+        <header class="mb-20 max-w-4xl">
+            <h2 class="text-amber-600 font-semibold tracking-widest text-sm mb-4 uppercase">Strategic Analysis: Taleggio DOP</h2>
+            <h1 class="serif text-5xl md:text-7xl font-bold leading-tight mb-6">
+                From Misty Valleys to <br><span class="italic text-gray-400 text-4xl md:text-6xl text-amber-800">Global Brand Equity</span>
+            </h1>
+            <p class="text-xl text-gray-600 font-light leading-relaxed">
+                Deconstructing the "Brand Moat" of a 1,000-year-old tradition: How DOP certification generates premium value in modern markets.
+            </p>
+            <p class="ita-text text-lg italic">
+                Decostruire il "Brand Moat" di una tradizione millenaria: come la certificazione DOP genera valore premium nei mercati moderni.
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            
+            <div class="lg:col-span-5 space-y-12 border-r border-gray-100 pr-8">
+                <section>
+                    <div class="accent-line"></div>
+                    <h3 class="serif text-3xl font-bold mb-4 italic text-gray-800 text-amber-900">A Living Heritage</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-gray-700 leading-relaxed">
+                                Born in the 10th century within the misty caves of Val Taleggio, this "square of tradition" carries the weight of a thousand years of craftsmanship.
+                            </p>
+                            <p class="ita-text">
+                                Nato nel X secolo tra le grotte nebbiose della Val Taleggio, questo "quadrato di tradizione" porta il peso di mille anni di artigianato.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-gray-700 leading-relaxed">
+                                Today, it successfully transforms "ancestral wisdom" into a "premium global brand," achieving a modern renaissance without losing its soul.
+                            </p>
+                            <p class="ita-text">
+                                Oggi, trasforma con successo la "saggezza ancestrale" in un "marchio globale premium", realizzando un moderno rinascimento senza perdere la sua anima.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                    <h4 class="text-xs uppercase tracking-tighter text-amber-600 mb-6 mono font-bold">Marketing Strategic Pivot</h4>
+                    <div class="space-y-8">
+                        <div>
+                            <h5 class="font-bold text-gray-900 text-sm">01. Visual Storytelling (Food Porn)</h5>
+                            <p class="text-xs text-gray-500 mt-1 italic uppercase">Leveraging TikTok/IG for gooey texture visuals.</p>
+                            <p class="ita-text text-xs">Sfruttare TikTok/IG per la narrazione visiva della consistenza cremosa.</p>
+                        </div>
+                        <div>
+                            <h5 class="font-bold text-gray-900 text-sm">02. Lifestyle Co-branding</h5>
+                            <p class="text-xs text-gray-500 mt-1 italic uppercase">Partnerships with craft beers & independent designers.</p>
+                            <p class="ita-text text-xs">Partnership con birre artigianali e designer indipendenti.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 space-y-12">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gray-900 text-white p-8 rounded-3xl">
+                        <p class="mono text-[10px] text-gray-400 uppercase tracking-widest">Export Growth (2024)</p>
+                        <h4 class="text-5xl font-bold serif italic my-4 text-amber-400">+11.6%</h4>
+                        <p class="text-xs text-gray-400">Robust market resilience despite global economic shifts.</p>
+                        <p class="ita-text text-[10px] text-gray-500 uppercase">Resilienza del mercato nonostante i mutamenti economici.</p>
+                    </div>
+                    <div class="bg-amber-100 p-8 rounded-3xl border border-amber-200">
+                        <p class="mono text-[10px] text-amber-700 uppercase tracking-widest">Annual Output</p>
+                        <h4 class="text-5xl font-bold text-amber-900 my-4">8,694 <span class="text-xl">t</span></h4>
+                        <p class="text-xs text-amber-800">Stable production secured by the Consorzio's bargaining power.</p>
+                        <p class="ita-text text-[10px] text-amber-600 uppercase">Produzione stabile garantita dal potere negoziale del Consorzio.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-10">
+                    <div class="border-b border-gray-100 pb-8">
+                        <h4 class="serif text-2xl font-bold mb-3 text-gray-900">The DOP "Brand Moat"</h4>
+                        <p class="text-gray-600 text-sm mb-2">
+                            The DOP seal functions as a <strong>Price Premium</strong> engine, providing legal exclusivity that shields the product from commodity-level competition.
+                        </p>
+                        <p class="ita-text">
+                            Il marchio DOP funge da motore per il <strong>Price Premium</strong>, fornendo un'esclusività legale che protegge il prodotto dalla concorrenza delle commodity.
+                        </p>
+                    </div>
+
+                    <div class="border-b border-gray-100 pb-8">
+                        <h4 class="serif text-2xl font-bold mb-3 text-gray-900">From Ingredient to Experience</h4>
+                        <p class="text-gray-600 text-sm mb-2">
+                            A shift from traditional consumption to modern, versatile culinary applications in the B2B (HoReCa) and B2C segments.
+                        </p>
+                        <p class="ita-text">
+                            Un passaggio dal consumo tradizionale verso moderne e versatili applicazioni culinarie nei segmenti B2B (HoReCa) e B2C.
+                        </p>
+                    </div>
+                </div>
+
+                <footer class="p-6 bg-gray-100 rounded-2xl">
+                    <p class="mono text-[10px] text-gray-400 leading-loose">
+                        DATA SOURCE: Consorzio Tutela Taleggio (May 2025) // 
+                        MARKET INSIGHT: Technavio & Grand View Research 2025-2029 // 
+                        ACADEMIC REF: MDPI: Value-Added Attributes in PDO Markets.
+                    </p>
+                </footer>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
