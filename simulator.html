@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taleggio Ripening Simulator - Kiren's Project</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background: #fffcf5; color: #4a3728; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .cheese-box { height: 150px; background: #eee; margin: 20px 0; position: relative; border: 2px solid #d2b48c; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .rind { position: absolute; inset: 0; border: 5px solid #f8d7da; transition: all 0.3s; }
+        .creamy-layer { position: absolute; inset: 5px; background: #fff9e6; transition: all 0.3s; }
+        .core { width: 80%; height: 60%; background: white; border: 1px dashed #ccc; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #999; transition: all 0.3s; }
+        .controls { margin-top: 30px; text-align: center; }
+        input[type=range] { width: 100%; margin: 20px 0; cursor: pointer; }
+        .status-box { background: #fdf2e9; padding: 15px; border-radius: 8px; margin-top: 20px; line-height: 1.6; }
+        .academic-ref { font-size: 11px; color: #888; margin-top: 10px; text-align: right; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align: center; color: #d35400;">Taleggio Ripening Simulator</h2>
+        <p style="text-align: center;">Kiren Yiran | Quality & Sensorial Analysis Project</p>
+        
+        <div class="cheese-box">
+            <div id="rind" class="rind"></div>
+            <div id="creamy" class="creamy-layer"></div>
+            <div id="core" class="core">Core</div>
+        </div>
+
+        <div class="controls">
+            <label>Ripening Duration: <span id="days">1</span> Days</label>
+            <input type="range" id="slider" min="1" max="45" value="1">
+        </div>
+
+        <div id="status" class="status-box">
+            <strong>Stage:</strong> Initial Maturation (Day 1)
+        </div>
+
+        <div style="margin-top: 30px;">
+            <canvas id="microbeChart"></canvas>
+        </div>
+        
+        <p class="academic-ref">Source: Adapted from Ghisoni et al. (2022) & Consortium Standards</p>
+    </div>
+
+    <script>
+        const slider = document.getElementById('slider');
+        const daysLabel = document.getElementById('days');
+        const statusBox = document.getElementById('status');
+        const rind = document.getElementById('rind');
+        const creamy = document.getElementById('creamy');
+        const core = document.getElementById('core');
+
+        // Logic for visual changes
+        slider.oninput = function() {
+            const val = this.value;
+            daysLabel.innerText = val;
+            
+            // Visual feedback
+            const pinkIntensity = Math.min(val * 5, 100);
+            rind.style.borderColor = `rgb(248, ${215 - val}, ${218 - val})`;
+            creamy.style.background = `rgb(255, 249, ${230 - val*2})`;
+            
+            const coreSize = Math.max(80 - val * 1.5, 10);
+            core.style.width = coreSize + '%';
+            core.style.height = (coreSize * 0.75) + '%';
+            core.style.opacity = (100 - val) / 100;
+
+            // Status updates
+            if(val < 15) {
+                statusBox.innerHTML = `<strong>Day ${val}:</strong> Early stage. LAB dominance; surface colonization by yeasts begins. Texture is uniform.`;
+            } else if(val < 35) {
+                statusBox.innerHTML = `<strong>Day ${val}:</strong> Transition phase. Proteolysis starts breaking down the paste under the rind.`;
+            } else {
+                statusBox.innerHTML = `<strong>Day ${val}:</strong> <span style="color:#d35400;">PDO Threshold Reached.</span> Intense centripetal ripening. High digestibility. Signature truffle aroma.`;
+            }
+            updateChart(val);
+        };
+
+        // Chart.js for microbial trends
+        const ctx = document.getElementById('microbeChart').getContext('2d');
+        let microbeChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array.from({length: 45}, (_, i) => i + 1),
+                datasets: [
+                    { label: 'LAB', data: Array.from({length: 45}, (_, i) => 100 / (i + 1)), borderColor: '#3498db', fill: false },
+                    { label: 'Yeasts/Moulds', data: Array.from({length: 45}, (_, i) => i * 2), borderColor: '#e67e22', fill: false }
+                ]
+            },
+            options: { responsive: true, scales: { y: { display: false } } }
+        });
+
+        function updateChart(day) {
+            // Simplified update logic for the demo
+            microbeChart.update();
+        }
+    </script>
+</body>
+</html>
