@@ -11,7 +11,9 @@
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-cream); color: #1a1a1a; scroll-behavior: smooth; }
         .serif { font-family: 'Playfair Display', serif; }
         .mono { font-family: 'JetBrains Mono', monospace; }
+        .ita-text { color: #8a8a8a; font-style: italic; font-size: 0.85rem; line-height: 1.6; margin-top: 0.5rem; display: block; border-left: 2px solid #e5e7eb; padding-left: 0.75rem; }
         .accent-line { width: 40px; height: 2px; background: var(--taleggio-gold); margin-bottom: 1.5rem; }
+        .editorial-quote::before { content: '“'; position: absolute; font-size: 8rem; color: rgba(212, 175, 55, 0.15); font-family: 'Playfair Display', serif; top: -40px; left: -20px; line-height: 1; }
     </style>
 </head>
 <body class="selection:bg-amber-100">
@@ -33,32 +35,30 @@
             </p>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start mb-20">
             
             <div class="lg:col-span-5 space-y-12">
                 
                 <section>
                     <div class="accent-line"></div>
                     <h3 class="serif text-2xl font-bold mb-4 text-gray-800">I. History & Origins</h3>
-                    <p class="text-gray-700 leading-relaxed text-sm mb-4">
-                        Originating in the Val Taleggio (Bergamo, Lombardy) in the early 10th century, Taleggio was originally produced to utilize excess milk from weary cows returning from mountain pastures—hence the name "stracchino" or "tired" cheese. 
+                    <p class="text-gray-700 leading-relaxed text-sm mb-2">
+                        Originating in the Val Taleggio (Lombardy) in the early 10th century, Taleggio was produced to utilize excess milk from weary cows returning from mountain pastures—hence the name <i>"stracchino"</i> or "tired" cheese. Shepherds stored it in special rectangular wooden boxes for easy transport on mules, birthing its iconic square shape.
                     </p>
-                    <p class="text-gray-700 leading-relaxed text-sm">
-                        Shepherds stored it in special rectangular wooden boxes for easy transport on mules, birthing its iconic square shape. The Consortium was formed in 1978, securing EU PDO status in 1996.
-                    </p>
+                    <span class="ita-text">Originario della Val Taleggio all'inizio del X secolo, nasceva per utilizzare il latte in eccesso delle vacche "stanche" di ritorno dall'alpeggio (da cui "stracchino"). I pastori lo conservavano in casse quadrate di legno per il trasporto sui muli, dando origine alla sua forma iconica.</span>
                 </section>
 
                 <section class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
                     <h3 class="serif text-2xl font-bold mb-4 text-gray-900 italic">II. Legalities (PDO Standards)</h3>
                     <p class="text-sm text-gray-600 leading-relaxed mb-4">
-                        Granted PDO status under EC Regulation No. 1107/96, Taleggio must be produced, processed, and matured exclusively within Lombardy, Piedmont, and Veneto.
+                        Granted PDO status under EC Regulation No. 1107/96, it must be produced and matured exclusively within Lombardy, Piedmont, and Veneto.
                     </p>
                     <ul class="space-y-3 text-sm text-gray-600 border-t border-gray-100 pt-4">
                         <li><strong>Material:</strong> Whole cow’s milk.</li>
                         <li><strong>Specs:</strong> Square shape (18–20 cm), 1.5–2.5 kg, min 48% fat.</li>
                         <li><strong>Aging:</strong> Minimum 35 days.</li>
-                        <li><strong>Markings:</strong> Must bear the 4-leaf clover and "3 T" logo.</li>
                     </ul>
+                    <span class="ita-text border-none pl-0 mt-4 text-[13px]">Riconosciuto dalla DOP (Reg. CE 1107/96), deve essere prodotto esclusivamente con latte vaccino intero in Lombardia, Piemonte e Veneto, con stagionatura minima di 35 giorni. Deve recare il logo "3 T" sulla crosta.</span>
                 </section>
 
                 <div class="p-8 bg-gray-900 rounded-3xl text-white shadow-xl transform hover:scale-[1.01] transition-all duration-300">
@@ -76,56 +76,68 @@
             <div class="lg:col-span-7 space-y-12">
                 
                 <section>
-                    <h3 class="serif text-3xl font-bold mb-6 text-gray-900">III. Production & Sourcing</h3>
+                    <h3 class="serif text-3xl font-bold mb-6 text-gray-900">III. Production & Processing</h3>
                     <div class="prose prose-sm text-gray-700 space-y-4">
                         <p>
-                            Following a semi-soft, washed rind process, raw or pasteurized whole cow's milk is heated (32–35°C) and inoculated with starter cultures and non-GMO veal rennet. Curds form in 15-20 mins and are cut to hazelnut size.
+                            Raw or pasteurized milk is heated (32–35°C) and inoculated with non-GMO veal rennet. Curds are cut to hazelnut size and transferred to square molds without pressing. During "The Stew" (20-28°C for 8-16 hrs), whey ejection completes. A dry salt brine preserves the cheese and aids rind formation.
                         </p>
-                        <p>
-                            Transferred to square molds, the cheese drains without pressing. During "The Stew" phase (20-28°C for 8-16 hrs), whey ejection completes. Finally, a dry salt brine preserves the cheese and aids rind formation before its minimum 35-day ripening journey.
-                        </p>
+                        <span class="ita-text">Il latte viene scaldato (32-35°C) con caglio di vitello non OGM. La cagliata, rotta a dimensione di nocciola, subisce la fase di "stufatura" (20-28°C per 8-16 ore) e viene salata a secco per favorire la formazione della crosta.</span>
                     </div>
                 </section>
 
-                <section class="border-l-4 border-amber-200 pl-6">
+                <section class="border-l-4 border-amber-200 pl-6 py-2">
                     <h3 class="serif text-2xl font-bold mb-4 text-gray-900">IV. Sensory Qualities</h3>
                     <p class="text-sm text-gray-700 leading-relaxed mb-4">
-                        Recognized by its light orange rind and pale yellow interior without eyes, Taleggio features a smooth, buttery mouthfeel. Its nutty flavor is comparatively milder than its robust, pungent aroma—a direct result of smear-ripening.
+                        Recognized by its light orange rind and pale yellow interior without eyes, Taleggio features a smooth, buttery mouthfeel. Its nutty flavor is milder than its robust, pungent aroma—a direct result of smear-ripening.
                     </p>
-                    <p class="text-sm text-gray-500 italic">
-                        <strong>Pairing Notes:</strong> Ideal for cream sauces, potatoes au gratin, or charcuterie boards. Complements medium-bodied, earthy red wines (Chianti) or crisp, dry sparkling whites (Prosecco).
+                    <span class="ita-text border-none pl-0 mb-4">Caratterizzato da crosta aranciata e pasta giallo paglierino. Al palato è burroso e dolce, in contrasto con l'aroma pungente derivato dalla crosta lavata.</span>
+                    <p class="text-sm text-gray-500 italic bg-gray-50 p-3 rounded">
+                        <strong>Pairing Notes:</strong> Ideal for cream sauces or charcuterie boards. Complements earthy red wines (<i>Chianti</i>) or crisp sparkling whites (<i>Prosecco</i>).
                     </p>
                 </section>
 
                 <section class="bg-amber-50 p-8 rounded-3xl border border-amber-100">
-                    <h3 class="serif text-3xl font-bold mb-6 text-amber-900">V. Key Characteristics & Microbiology</h3>
+                    <h3 class="serif text-3xl font-bold mb-6 text-amber-900">V. Microbiology Dynamics</h3>
                     <div class="space-y-4 text-gray-800 text-sm leading-relaxed">
                         <p>
-                            The maturation follows a <strong>centripetal pattern</strong>, progressing from the surface inward. The rind's pinkish-orange hue indicates an intense enzymatic ecosystem, maintained through traditional "sponging" with saltwater.
+                            Maturation follows a <strong>centripetal pattern</strong>, progressing from the surface inward. Traditional "sponging" with saltwater maintains a complex microbial ecosystem on the rind.
                         </p>
-                        <p>
-                            This microbial community includes:
-                        </p>
-                        <ul class="list-disc pl-5 space-y-1 text-amber-900/80">
+                        <ul class="list-disc pl-5 space-y-1 text-amber-900/80 font-medium">
                             <li><strong>Moulds:</strong> <i>Penicillium</i>, <i>Cladosporium</i>, <i>Mucor</i></li>
                             <li><strong>Bacteria:</strong> LAB, <i>Micrococci</i>, <i>Corynebacteria</i></li>
                             <li><strong>Yeasts:</strong> <i>Debaryomyces</i>, <i>Candida</i>, <i>Geotrichum</i></li>
                         </ul>
                         <p class="pt-4">
-                            These microorganisms facilitate proteolysis and lipolysis, creating the signature "oozing" texture near the rind and ensuring high digestibility by "pre-digesting" proteins and fats.
+                            These microorganisms facilitate proteolysis and lipolysis, creating the signature "oozing" texture near the rind and ensuring high digestibility.
                         </p>
+                        <span class="ita-text !border-amber-200 !text-amber-800/70">La maturazione centripeta è guidata da un ecosistema di muffe, batteri e lieviti. La "spugnatura" favorisce una spiccata proteolisi e lipolisi, rendendo il formaggio cremoso nel sottocrosta e altamente digeribile.</span>
                     </div>
                 </section>
-
-                <section class="pt-6 border-t border-gray-200">
-                    <h3 class="serif text-xl font-bold mb-4 text-gray-800 italic">Conclusion</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed">
-                        Taleggio PDO stands as a great example of how ancient agricultural traditions can be successfully preserved through modern legal and scientific frameworks. Its unique sensory profile, driven by geographic terroir and a complex microbial ecosystem, cannot be replicated elsewhere. Its resilient success demonstrates that legal protection of traditional methods is essential for maintaining food quality, regional identity, and cultural heritage.
-                    </p>
-                </section>
-
             </div>
         </div>
+
+        <section class="relative bg-white p-12 md:p-20 rounded-[2.5rem] shadow-2xl border border-gray-100 overflow-hidden mt-12">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-amber-50 rounded-full blur-3xl opacity-60 -mr-20 -mt-20 pointer-events-none"></div>
+            
+            <div class="relative editorial-quote max-w-4xl mx-auto text-center">
+                <h3 class="mono text-xs uppercase tracking-[0.3em] text-amber-500 mb-8 font-bold">Conclusion</h3>
+                
+                <p class="serif text-2xl md:text-4xl text-gray-900 leading-snug mb-8">
+                    Taleggio PDO stands as a testament to the sophisticated marriage between ancient Alpine tradition and modern European frameworks.
+                </p>
+                
+                <p class="text-gray-600 text-base md:text-lg leading-relaxed mb-8 max-w-3xl mx-auto font-light">
+                    Its unique sensory profile, driven by geographic terroir and a complex microbial ecosystem, cannot be replicated elsewhere. Its resilient success demonstrates that legal protection of traditional methods is essential for maintaining food quality, regional identity, and cultural heritage.
+                </p>
+
+                <div class="w-24 h-px bg-gray-300 mx-auto mb-8"></div>
+
+                <p class="ita-text !border-none !p-0 !text-center text-gray-500 max-w-2xl mx-auto italic text-base md:text-lg">
+                    Il successo globale del Taleggio DOP dimostra come la tutela legale dei metodi tradizionali sia fondamentale per preservare la qualità alimentare, l'identità regionale e il patrimonio culturale.
+                </p>
+            </div>
+        </section>
+
     </main>
 </body>
 </html>
