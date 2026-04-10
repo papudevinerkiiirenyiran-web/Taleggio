@@ -3,100 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taleggio Ripening Simulator - Kiren's Project</title>
+    <title>Taleggio Ripening Simulator Pro</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background: #fffcf5; color: #4a3728; }
-        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .cheese-box { height: 150px; background: #eee; margin: 20px 0; position: relative; border: 2px solid #d2b48c; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .rind { position: absolute; inset: 0; border: 5px solid #f8d7da; transition: all 0.3s; }
-        .creamy-layer { position: absolute; inset: 5px; background: #fff9e6; transition: all 0.3s; }
-        .core { width: 80%; height: 60%; background: white; border: 1px dashed #ccc; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #999; transition: all 0.3s; }
-        .controls { margin-top: 30px; text-align: center; }
-        input[type=range] { width: 100%; margin: 20px 0; cursor: pointer; }
-        .status-box { background: #fdf2e9; padding: 15px; border-radius: 8px; margin-top: 20px; line-height: 1.6; }
-        .academic-ref { font-size: 11px; color: #888; margin-top: 10px; text-align: right; }
+        body { background-color: #121212; font-family: 'Inter', sans-serif; color: #e0e0e0; }
+        .cheese-container { background: #1a1a1a; border: 1px solid #333; }
+        .rind-border { border: 2px solid #ff9a9e; transition: all 0.5s ease; }
+        .creamy-body { background: #fff9e6; transition: all 0.5s ease; }
+        .compact-core { background: #ffffff; transition: all 0.5s ease; }
+        input[type=range] { accent-color: #fbbf24; }
+        /* Custom switch styling */
+        .toggle-checkbox:checked { right: 0; border-color: #fbbf24; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #fbbf24; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h2 style="text-align: center; color: #d35400;">Taleggio Ripening Simulator</h2>
-        <p style="text-align: center;">Kiren Yiran | Quality & Sensorial Analysis Project</p>
-        
-        <div class="cheese-box">
-            <div id="rind" class="rind"></div>
-            <div id="creamy" class="creamy-layer"></div>
-            <div id="core" class="core">Core</div>
+<body class="p-4 md:p-8 flex items-center justify-center min-h-screen">
+
+    <div class="max-w-4xl w-full cheese-container rounded-[2rem] p-8 shadow-2xl">
+        <div class="flex justify-between items-start mb-8">
+            <div>
+                <h1 class="text-2xl font-bold text-white tracking-tight">Taleggio Ripening Simulator</h1>
+                <p id="description" class="text-xs text-gray-400 mt-2 max-w-md leading-relaxed italic">Surface acidification begins. LAB dominates. Texture is elastic and uniform.</p>
+            </div>
+            <div class="flex gap-8 text-right uppercase mono text-[10px] tracking-widest text-gray-500">
+                <div>RIPENING<br><span id="dayDisplay" class="text-xl text-white font-bold">Day 1</span></div>
+                <div>STAGE<br><span id="stageDisplay" class="text-xl text-white font-bold">Fresh Curd</span></div>
+                <div>PDO STATUS<br><span id="pdoDisplay" class="text-xl text-gray-700 font-bold">PENDING</span></div>
+            </div>
         </div>
 
-        <div class="controls">
-            <label>Ripening Duration: <span id="days">1</span> Days</label>
-            <input type="range" id="slider" min="1" max="45" value="1">
+        <div class="relative h-64 bg-black/40 rounded-3xl mb-8 flex items-center justify-center overflow-hidden border border-white/5">
+            <div id="rind" class="absolute w-64 h-48 border-4 border-amber-200/30 rounded-lg flex items-center justify-center">
+                <div class="absolute top-[-15px] px-3 py-1 bg-white/10 border border-white/20 rounded-full text-[8px] uppercase tracking-tighter text-white">Natural Rind</div>
+                <div id="creamy" class="w-[95%] h-[92%] bg-[#fff9e6] rounded shadow-inner flex items-center justify-center">
+                    <div id="core" class="w-4/5 h-3/5 bg-white border border-gray-300 flex items-center justify-center text-[10px] text-gray-400 uppercase tracking-tighter font-bold shadow-sm">
+                        Compact Core
+                    </div>
+                </div>
+                <div class="absolute bottom-[-15px] px-3 py-1 bg-white/10 border border-white/20 rounded-full text-[8px] uppercase tracking-tighter text-white">Creamy Layer</div>
+            </div>
         </div>
 
-        <div id="status" class="status-box">
-            <strong>Stage:</strong> Initial Maturation (Day 1)
+        <div class="mb-8 border-t border-white/10 pt-6">
+            <h3 class="text-sm font-semibold mb-4 text-gray-300">Relative Abundance of Surface Microflora (Illustrative Data)</h3>
+            <div class="h-48">
+                <canvas id="microfloraChart"></canvas>
+            </div>
         </div>
 
-        <div style="margin-top: 30px;">
-            <canvas id="microbeChart"></canvas>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center border-t border-white/10 pt-8">
+            <div class="space-y-6">
+                <div class="flex items-center gap-4">
+                    <span class="text-xs text-gray-400 w-24">Ripening Days</span>
+                    <input type="range" id="daySlider" min="1" max="50" value="1" class="flex-grow">
+                    <span class="bg-white/10 px-3 py-1 rounded text-sm mono w-12 text-center">1</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="text-xs text-gray-400 w-24">Playback Speed</span>
+                    <input type="range" id="speedSlider" min="1" max="10" value="5" class="flex-grow">
+                    <span class="bg-white/10 px-3 py-1 rounded text-sm mono w-12 text-center">5</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="text-xs text-gray-400">Auto-Ripen</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="autoRipen" class="sr-only peer">
+                        <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
+                    </label>
+                </div>
+                <button id="resetBtn" class="flex-grow bg-white/10 hover:bg-white/20 text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-[10px] transition-all">Reset Batch</button>
+            </div>
         </div>
-        
-        <p class="academic-ref">Source: Adapted from Ghisoni et al. (2022) & Consortium Standards</p>
     </div>
 
     <script>
-        const slider = document.getElementById('slider');
-        const daysLabel = document.getElementById('days');
-        const statusBox = document.getElementById('status');
-        const rind = document.getElementById('rind');
-        const creamy = document.getElementById('creamy');
-        const core = document.getElementById('core');
+        const ctx = document.getElementById('microfloraChart').getContext('2d');
+        let currentDay = 1;
+        let timer = null;
 
-        // Logic for visual changes
-        slider.oninput = function() {
-            const val = this.value;
-            daysLabel.innerText = val;
-            
-            // Visual feedback
-            const pinkIntensity = Math.min(val * 5, 100);
-            rind.style.borderColor = `rgb(248, ${215 - val}, ${218 - val})`;
-            creamy.style.background = `rgb(255, 249, ${230 - val*2})`;
-            
-            const coreSize = Math.max(80 - val * 1.5, 10);
-            core.style.width = coreSize + '%';
-            core.style.height = (coreSize * 0.75) + '%';
-            core.style.opacity = (100 - val) / 100;
+        // Data arrays for 50 days
+        const labels = Array.from({length: 50}, (_, i) => i + 1);
+        const labData = labels.map(d => 95 * Math.exp(-0.08 * d));
+        const yeastData = labels.map(d => 80 * Math.sin(d/10) * Math.exp(-0.03 * d));
+        const mouldData = labels.map(d => d < 10 ? 0 : 60 * Math.pow((d-10)/40, 0.5));
+        const keyBacteria = labels.map(d => 100 / (1 + Math.exp(-0.15 * (d-25))));
 
-            // Status updates
-            if(val < 15) {
-                statusBox.innerHTML = `<strong>Day ${val}:</strong> Early stage. LAB dominance; surface colonization by yeasts begins. Texture is uniform.`;
-            } else if(val < 35) {
-                statusBox.innerHTML = `<strong>Day ${val}:</strong> Transition phase. Proteolysis starts breaking down the paste under the rind.`;
-            } else {
-                statusBox.innerHTML = `<strong>Day ${val}:</strong> <span style="color:#d35400;">PDO Threshold Reached.</span> Intense centripetal ripening. High digestibility. Signature truffle aroma.`;
-            }
-            updateChart(val);
-        };
-
-        // Chart.js for microbial trends
-        const ctx = document.getElementById('microbeChart').getContext('2d');
-        let microbeChart = new Chart(ctx, {
+        const chart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: Array.from({length: 45}, (_, i) => i + 1),
+                labels: labels,
                 datasets: [
-                    { label: 'LAB', data: Array.from({length: 45}, (_, i) => 100 / (i + 1)), borderColor: '#3498db', fill: false },
-                    { label: 'Yeasts/Moulds', data: Array.from({length: 45}, (_, i) => i * 2), borderColor: '#e67e22', fill: false }
+                    { label: 'Lactic Acid Bacteria', data: labData.slice(0, 1), borderColor: '#60a5fa', borderWidth: 2, pointRadius: 0, fill: false },
+                    { label: 'Surface Yeasts', data: yeastData.slice(0, 1), borderColor: '#a78bfa', borderWidth: 2, pointRadius: 0, fill: false },
+                    { label: 'Surface Moulds', data: mouldData.slice(0, 1), borderColor: '#4ade80', borderWidth: 2, pointRadius: 0, fill: false },
+                    { label: 'Key Bacteria', data: keyBacteria.slice(0, 1), borderColor: '#f87171', borderWidth: 3, pointRadius: 0, fill: false }
                 ]
             },
-            options: { responsive: true, scales: { y: { display: false } } }
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: true, labels: { color: '#888', font: { size: 10 }, usePointStyle: true } } },
+                scales: {
+                    x: { display: false },
+                    y: { min: 0, max: 100, grid: { color: '#333' }, border: { display: false }, ticks: { display: false } }
+                }
+            }
         });
 
-        function updateChart(day) {
-            // Simplified update logic for the demo
-            microbeChart.update();
+        function updateUI(day) {
+            currentDay = parseInt(day);
+            document.getElementById('dayDisplay').innerText = `Day ${day}`;
+            document.getElementById('daySlider').value = day;
+            document.getElementById('daySlider').nextElementSibling.innerText = day;
+
+            // Visual Logic
+            const rind = document.getElementById('rind');
+            const core = document.getElementById('core');
+            const creamy = document.getElementById('creamy');
+            const desc = document.getElementById('description');
+            const pdo = document.getElementById('pdoDisplay');
+            const stage = document.getElementById('stageDisplay');
+
+            // Rind & Core scaling
+            const coreSize = Math.max(80 - (day * 1.4), 0);
+            core.style.width = coreSize + '%';
+            core.style.height = (coreSize * 0.6) + '%';
+            core.style.opacity = coreSize / 80;
+            
+            const pink = Math.min(day * 4, 150);
+            rind.style.borderColor = `rgba(251, 191, 36, ${0.1 + (day/100)})`;
+            creamy.style.backgroundColor = `rgb(255, 249, ${Math.max(230 - day*2, 180)})`;
+
+            // Text Logic
+            if(day < 15) {
+                stage.innerText = "Fresh Curd";
+                desc.innerText = "Surface acidification begins. LAB dominates. Texture is elastic and uniform.";
+                pdo.innerText = "PENDING"; pdo.className = "text-xl text-gray-800 font-bold";
+            } else if(day < 35) {
+                stage.innerText = "Maturation";
+                desc.innerText = "Yeasts and moulds appear on the rind. Proteolysis begins at the edges.";
+                pdo.innerText = "IN PROGRESS"; pdo.className = "text-xl text-amber-600 font-bold";
+            } else {
+                stage.innerText = "Fully Ripened";
+                desc.innerText = "Intense centripetal ripening. PDO requirements met. Creamy texture, signature truffle aroma.";
+                pdo.innerText = "CERTIFIED"; pdo.className = "text-xl text-green-500 font-bold";
+            }
+
+            // Chart Update
+            chart.data.datasets[0].data = labData.slice(0, day);
+            chart.data.datasets[1].data = yeastData.slice(0, day);
+            chart.data.datasets[2].data = mouldData.slice(0, day);
+            chart.data.datasets[3].data = keyBacteria.slice(0, day);
+            chart.update('none');
         }
+
+        document.getElementById('daySlider').oninput = (e) => updateUI(e.target.value);
+        
+        document.getElementById('autoRipen').onclick = (e) => {
+            if(e.target.checked) {
+                timer = setInterval(() => {
+                    let next = parseInt(document.getElementById('daySlider').value) + 1;
+                    if(next > 50) {
+                        clearInterval(timer);
+                        document.getElementById('autoRipen').checked = false;
+                    } else {
+                        updateUI(next);
+                    }
+                }, 1100 - (document.getElementById('speedSlider').value * 100));
+            } else {
+                clearInterval(timer);
+            }
+        };
+
+        document.getElementById('resetBtn').onclick = () => {
+            clearInterval(timer);
+            document.getElementById('autoRipen').checked = false;
+            updateUI(1);
+        };
+
+        // Init
+        updateUI(1);
     </script>
 </body>
 </html>
