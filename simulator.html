@@ -13,42 +13,48 @@
         .rind-border { border: 2px solid #ff9a9e; transition: all 0.5s ease; }
         .creamy-body { background: #fff9e6; transition: all 0.5s ease; }
         .compact-core { background: #ffffff; transition: all 0.5s ease; }
-        input[type=range] { accent-color: #fbbf24; }
-        /* Custom switch styling */
+        input[type=range] { accent-color: #fbbf24; cursor: pointer; }
+        /* 自定义 Auto-Ripen 开关样式 */
         .toggle-checkbox:checked { right: 0; border-color: #fbbf24; }
         .toggle-checkbox:checked + .toggle-label { background-color: #fbbf24; }
     </style>
 </head>
-<body class="p-4 md:p-8 flex items-center justify-center min-h-screen">
+<body class="p-4 md:p-8 flex items-center justify-center min-h-screen selection:bg-amber-500/30">
 
     <div class="max-w-4xl w-full cheese-container rounded-[2rem] p-8 shadow-2xl">
-        <div class="flex justify-between items-start mb-8">
+        
+        <div class="flex flex-col md:flex-row justify-between items-start mb-8 gap-4">
             <div>
                 <h1 class="text-2xl font-bold text-white tracking-tight">Taleggio Ripening Simulator</h1>
                 <p id="description" class="text-xs text-gray-400 mt-2 max-w-md leading-relaxed italic">Surface acidification begins. LAB dominates. Texture is elastic and uniform.</p>
             </div>
-            <div class="flex gap-8 text-right uppercase mono text-[10px] tracking-widest text-gray-500">
+            <div class="flex gap-6 text-right uppercase mono text-[10px] tracking-widest text-gray-500">
                 <div>RIPENING<br><span id="dayDisplay" class="text-xl text-white font-bold">Day 1</span></div>
                 <div>STAGE<br><span id="stageDisplay" class="text-xl text-white font-bold">Fresh Curd</span></div>
                 <div>PDO STATUS<br><span id="pdoDisplay" class="text-xl text-gray-700 font-bold">PENDING</span></div>
             </div>
         </div>
 
-        <div class="relative h-64 bg-black/40 rounded-3xl mb-8 flex items-center justify-center overflow-hidden border border-white/5">
-            <div id="rind" class="absolute w-64 h-48 border-4 border-amber-200/30 rounded-lg flex items-center justify-center">
-                <div class="absolute top-[-15px] px-3 py-1 bg-white/10 border border-white/20 rounded-full text-[8px] uppercase tracking-tighter text-white">Natural Rind</div>
-                <div id="creamy" class="w-[95%] h-[92%] bg-[#fff9e6] rounded shadow-inner flex items-center justify-center">
-                    <div id="core" class="w-4/5 h-3/5 bg-white border border-gray-300 flex items-center justify-center text-[10px] text-gray-400 uppercase tracking-tighter font-bold shadow-sm">
+        <div class="relative h-64 bg-black/40 rounded-3xl mb-8 flex items-center justify-center overflow-hidden border border-white/5 shadow-inner">
+            <div id="rind" class="absolute w-64 h-48 border-4 border-amber-200/30 rounded-lg flex items-center justify-center transition-all duration-300">
+                <div class="absolute top-[-15px] px-3 py-1 bg-white/10 border border-white/20 rounded-full text-[8px] uppercase tracking-tighter text-white backdrop-blur-sm shadow-lg z-10">Natural Rind</div>
+                
+                <div id="creamy" class="w-[95%] h-[92%] bg-[#fff9e6] rounded shadow-inner flex items-center justify-center transition-all duration-300">
+                    <div id="core" class="w-4/5 h-3/5 bg-white border border-gray-300 flex items-center justify-center text-[10px] text-gray-400 uppercase tracking-tighter font-bold shadow-sm transition-all duration-300">
                         Compact Core
                     </div>
                 </div>
-                <div class="absolute bottom-[-15px] px-3 py-1 bg-white/10 border border-white/20 rounded-full text-[8px] uppercase tracking-tighter text-white">Creamy Layer</div>
+                
+                <div class="absolute bottom-[-15px] px-3 py-1 bg-white/10 border border-white/20 rounded-full text-[8px] uppercase tracking-tighter text-white backdrop-blur-sm shadow-lg z-10">Creamy Layer</div>
             </div>
         </div>
 
         <div class="mb-8 border-t border-white/10 pt-6">
-            <h3 class="text-sm font-semibold mb-4 text-gray-300">Relative Abundance of Surface Microflora (Illustrative Data)</h3>
-            <div class="h-48">
+            <h3 class="text-sm font-semibold mb-4 text-gray-300 flex items-center justify-between">
+                Microbial Succession Dynamics
+                <span class="text-[10px] text-gray-500 mono font-normal border border-gray-700 px-2 py-1 rounded">DATA: SIMULATED (% Abundance)</span>
+            </h3>
+            <div class="h-56">
                 <canvas id="microfloraChart"></canvas>
             </div>
         </div>
@@ -56,70 +62,112 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center border-t border-white/10 pt-8">
             <div class="space-y-6">
                 <div class="flex items-center gap-4">
-                    <span class="text-xs text-gray-400 w-24">Ripening Days</span>
+                    <span class="text-xs text-gray-400 w-24 font-semibold uppercase tracking-wider">Ripening</span>
                     <input type="range" id="daySlider" min="1" max="50" value="1" class="flex-grow">
-                    <span class="bg-white/10 px-3 py-1 rounded text-sm mono w-12 text-center">1</span>
+                    <span class="bg-gray-800 text-amber-400 border border-gray-700 px-3 py-1 rounded text-sm mono w-12 text-center">1</span>
                 </div>
                 <div class="flex items-center gap-4">
-                    <span class="text-xs text-gray-400 w-24">Playback Speed</span>
+                    <span class="text-xs text-gray-400 w-24 font-semibold uppercase tracking-wider">Speed</span>
                     <input type="range" id="speedSlider" min="1" max="10" value="5" class="flex-grow">
-                    <span class="bg-white/10 px-3 py-1 rounded text-sm mono w-12 text-center">5</span>
+                    <span class="bg-gray-800 text-amber-400 border border-gray-700 px-3 py-1 rounded text-sm mono w-12 text-center">5</span>
                 </div>
             </div>
             
-            <div class="flex items-center justify-between gap-4">
+            <div class="flex items-center justify-between gap-6">
                 <div class="flex items-center gap-3">
-                    <span class="text-xs text-gray-400">Auto-Ripen</span>
+                    <span class="text-xs text-gray-400 font-semibold uppercase tracking-wider">Auto-Ripen</span>
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" id="autoRipen" class="sr-only peer">
                         <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
                     </label>
                 </div>
-                <button id="resetBtn" class="flex-grow bg-white/10 hover:bg-white/20 text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-[10px] transition-all">Reset Batch</button>
+                <button id="resetBtn" class="flex-grow bg-white/5 hover:bg-white/10 border border-white/10 text-white py-3 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all focus:ring focus:ring-amber-500/50">
+                    Reset Batch
+                </button>
             </div>
         </div>
     </div>
 
     <script>
         const ctx = document.getElementById('microfloraChart').getContext('2d');
+        const daySlider = document.getElementById('daySlider');
+        const speedSlider = document.getElementById('speedSlider');
+        const autoRipenToggle = document.getElementById('autoRipen');
+        
         let currentDay = 1;
         let timer = null;
 
-        // Data arrays for 50 days
+        // Data Generation (50 Days)
         const labels = Array.from({length: 50}, (_, i) => i + 1);
         const labData = labels.map(d => 95 * Math.exp(-0.08 * d));
         const yeastData = labels.map(d => 80 * Math.sin(d/10) * Math.exp(-0.03 * d));
         const mouldData = labels.map(d => d < 10 ? 0 : 60 * Math.pow((d-10)/40, 0.5));
         const keyBacteria = labels.map(d => 100 / (1 + Math.exp(-0.15 * (d-25))));
 
+        // Chart Initialization (with detailed axes & tooltips)
         const chart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: labels,
                 datasets: [
-                    { label: 'Lactic Acid Bacteria', data: labData.slice(0, 1), borderColor: '#60a5fa', borderWidth: 2, pointRadius: 0, fill: false },
-                    { label: 'Surface Yeasts', data: yeastData.slice(0, 1), borderColor: '#a78bfa', borderWidth: 2, pointRadius: 0, fill: false },
-                    { label: 'Surface Moulds', data: mouldData.slice(0, 1), borderColor: '#4ade80', borderWidth: 2, pointRadius: 0, fill: false },
-                    { label: 'Key Bacteria', data: keyBacteria.slice(0, 1), borderColor: '#f87171', borderWidth: 3, pointRadius: 0, fill: false }
+                    { label: 'Lactic Acid Bacteria', data: labData.slice(0, 1), borderColor: '#60a5fa', backgroundColor: '#60a5fa', borderWidth: 2, pointRadius: 0, fill: false },
+                    { label: 'Surface Yeasts', data: yeastData.slice(0, 1), borderColor: '#a78bfa', backgroundColor: '#a78bfa', borderWidth: 2, pointRadius: 0, fill: false },
+                    { label: 'Surface Moulds', data: mouldData.slice(0, 1), borderColor: '#4ade80', backgroundColor: '#4ade80', borderWidth: 2, pointRadius: 0, fill: false },
+                    { label: 'Key Ripening Flora', data: keyBacteria.slice(0, 1), borderColor: '#f87171', backgroundColor: '#f87171', borderWidth: 3, pointRadius: 0, fill: false }
                 ]
             },
             options: {
-                responsive: true, maintainAspectRatio: false,
-                plugins: { legend: { display: true, labels: { color: '#888', font: { size: 10 }, usePointStyle: true } } },
+                responsive: true, 
+                maintainAspectRatio: false,
+                animation: { duration: 0 }, // 禁用内部动画以配合滑块拖动
+                plugins: { 
+                    legend: { 
+                        display: true, 
+                        labels: { color: '#aaa', font: { size: 10, family: 'Inter' }, usePointStyle: true, boxWidth: 6 } 
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                        backgroundColor: 'rgba(0,0,0,0.8)',
+                        titleColor: '#fbbf24',
+                        bodyFont: { family: 'JetBrains Mono' },
+                        callbacks: {
+                            title: function(context) { return 'Day ' + context[0].label; },
+                            label: function(context) { return context.dataset.label + ': ' + context.parsed.y.toFixed(1) + '%'; }
+                        }
+                    }
+                },
                 scales: {
-                    x: { display: false },
-                    y: { min: 0, max: 100, grid: { color: '#333' }, border: { display: false }, ticks: { display: false } }
+                    x: { 
+                        display: true, 
+                        title: { display: true, text: 'Ripening Time (Days)', color: '#666', font: { size: 10, family: 'Inter' } },
+                        grid: { color: '#333', drawBorder: false },
+                        ticks: { color: '#888', font: { size: 10, family: 'JetBrains Mono' }, maxTicksLimit: 10 }
+                    },
+                    y: { 
+                        display: true, 
+                        min: 0, max: 100, 
+                        title: { display: true, text: 'Abundance (%)', color: '#666', font: { size: 10, family: 'Inter' } },
+                        grid: { color: '#222', drawBorder: false }, 
+                        ticks: { 
+                            color: '#888', font: { size: 10, family: 'JetBrains Mono' }, stepSize: 20,
+                            callback: function(value) { return value + '%'; } 
+                        } 
+                    }
                 }
             }
         });
 
+        // Main UI Update Function
         function updateUI(day) {
             currentDay = parseInt(day);
+            
+            // Sync Slider Values
+            daySlider.value = day;
+            daySlider.nextElementSibling.innerText = day;
             document.getElementById('dayDisplay').innerText = `Day ${day}`;
-            document.getElementById('daySlider').value = day;
-            document.getElementById('daySlider').nextElementSibling.innerText = day;
 
-            // Visual Logic
+            // Sync Visual CSS
             const rind = document.getElementById('rind');
             const core = document.getElementById('core');
             const creamy = document.getElementById('creamy');
@@ -127,64 +175,86 @@
             const pdo = document.getElementById('pdoDisplay');
             const stage = document.getElementById('stageDisplay');
 
-            // Rind & Core scaling
             const coreSize = Math.max(80 - (day * 1.4), 0);
             core.style.width = coreSize + '%';
             core.style.height = (coreSize * 0.6) + '%';
             core.style.opacity = coreSize / 80;
             
-            const pink = Math.min(day * 4, 150);
             rind.style.borderColor = `rgba(251, 191, 36, ${0.1 + (day/100)})`;
             creamy.style.backgroundColor = `rgb(255, 249, ${Math.max(230 - day*2, 180)})`;
 
-            // Text Logic
+            // Sync Text & Status Logic
             if(day < 15) {
                 stage.innerText = "Fresh Curd";
-                desc.innerText = "Surface acidification begins. LAB dominates. Texture is elastic and uniform.";
-                pdo.innerText = "PENDING"; pdo.className = "text-xl text-gray-800 font-bold";
+                desc.innerText = "Surface acidification begins. Lactic Acid Bacteria dominate. Texture remains elastic and uniform.";
+                pdo.innerText = "PENDING"; pdo.className = "text-xl text-gray-600 font-bold";
             } else if(day < 35) {
                 stage.innerText = "Maturation";
-                desc.innerText = "Yeasts and moulds appear on the rind. Proteolysis begins at the edges.";
-                pdo.innerText = "IN PROGRESS"; pdo.className = "text-xl text-amber-600 font-bold";
+                desc.innerText = "Surface yeasts and moulds colonize the rind. Centripetal proteolysis begins softening the paste.";
+                pdo.innerText = "IN PROGRESS"; pdo.className = "text-xl text-amber-500 font-bold";
             } else {
                 stage.innerText = "Fully Ripened";
-                desc.innerText = "Intense centripetal ripening. PDO requirements met. Creamy texture, signature truffle aroma.";
-                pdo.innerText = "CERTIFIED"; pdo.className = "text-xl text-green-500 font-bold";
+                desc.innerText = "Intense proteolysis. PDO minimum requirement met (35 days). Creamy paste with signature truffle aroma.";
+                pdo.innerText = "CERTIFIED"; pdo.className = "text-xl text-green-500 font-bold drop-shadow-[0_0_8px_rgba(34,197,94,0.5)]";
             }
 
-            // Chart Update
+            // Sync Chart Data
             chart.data.datasets[0].data = labData.slice(0, day);
             chart.data.datasets[1].data = yeastData.slice(0, day);
             chart.data.datasets[2].data = mouldData.slice(0, day);
             chart.data.datasets[3].data = keyBacteria.slice(0, day);
-            chart.update('none');
+            chart.update();
         }
 
-        document.getElementById('daySlider').oninput = (e) => updateUI(e.target.value);
-        
-        document.getElementById('autoRipen').onclick = (e) => {
-            if(e.target.checked) {
-                timer = setInterval(() => {
-                    let next = parseInt(document.getElementById('daySlider').value) + 1;
-                    if(next > 50) {
-                        clearInterval(timer);
-                        document.getElementById('autoRipen').checked = false;
-                    } else {
-                        updateUI(next);
-                    }
-                }, 1100 - (document.getElementById('speedSlider').value * 100));
-            } else {
-                clearInterval(timer);
+        // Event Listeners
+        daySlider.addEventListener('input', (e) => {
+            if(autoRipenToggle.checked) {
+                stopAutoRipen();
+                autoRipenToggle.checked = false;
             }
-        };
+            updateUI(e.target.value);
+        });
+        
+        speedSlider.addEventListener('input', (e) => {
+            speedSlider.nextElementSibling.innerText = e.target.value;
+            if(autoRipenToggle.checked) {
+                stopAutoRipen();
+                startAutoRipen();
+            }
+        });
 
-        document.getElementById('resetBtn').onclick = () => {
+        // Timer Logic
+        function startAutoRipen() {
+            const speed = parseInt(speedSlider.value);
+            const interval = 1050 - (speed * 100); // Speed: 1 = 950ms, 10 = 50ms
+            
+            timer = setInterval(() => {
+                let next = parseInt(daySlider.value) + 1;
+                if(next > 50) {
+                    stopAutoRipen();
+                    autoRipenToggle.checked = false;
+                } else {
+                    updateUI(next);
+                }
+            }, interval);
+        }
+
+        function stopAutoRipen() {
             clearInterval(timer);
-            document.getElementById('autoRipen').checked = false;
-            updateUI(1);
-        };
+        }
 
-        // Init
+        autoRipenToggle.addEventListener('change', (e) => {
+            if(e.target.checked) startAutoRipen();
+            else stopAutoRipen();
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            stopAutoRipen();
+            autoRipenToggle.checked = false;
+            updateUI(1);
+        });
+
+        // Initialize state on load
         updateUI(1);
     </script>
 </body>
